@@ -18,11 +18,12 @@
     "test:cov": "jest --coverage",
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
     "test:e2e": "jest --config ./test/jest-e2e.json",
-    "typeorm": "ts-node -r tsconfig-paths/register node_modules/typeorm/cli.js --config=src/config/typeorm-config.ts",
-    "db:create": "ts-node -r tsconfig-paths/register ./node_modules/typeorm/cli.js migration:generate -d src/config/data-source.ts",
-    "db:migrate": "ts-node -r tsconfig-paths/register ./node_modules/typeorm/cli.js migration:run -d src/config/data-source.ts",
-    "db:revert": "ts-node -r tsconfig-paths/register ./node_modules/typeorm/cli.js migration:revert -d src/config/data-source.ts",
-    "db:drop": "pnpm typeorm schema:drop -d src/config/data-source.ts"
+    "typeorm": "ts-node -r tsconfig-paths/register node_modules/typeorm/cli.js",
+    "db:generate": "pnpm typeorm migration:generate -d src/configs/data-source.ts src/database/migrations/InitTable",
+    "db:run": "pnpm typeorm migration:run -d src/configs/data-source.ts",
+    "db:revert": "pnpm typeorm migration:revert -d src/configs/data-source.ts",
+    "db:drop": "pnpm typeorm schema:drop -d src/configs/data-source.ts",
+    "db:reset": "pnpm db:drop && pnpm db:run"
   },
   "dependencies": {
     "@nestjs/common": "^11.0.1",
